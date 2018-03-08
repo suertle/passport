@@ -33,6 +33,7 @@ class UserRepository implements UserRepositoryInterface
     public function getUserEntityByUserCredentials($username, $password, $grantType, ClientEntityInterface $clientEntity)
     {
         $guards = config('auth.clients');
+
         $provider = config('auth.guards.'.$guards[$clientEntity->getIdentifier()].'.provider');
 
         if (is_null($model = config('auth.providers.'.$provider.'.model'))) {
