@@ -32,11 +32,11 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getUserEntityByUserCredentials($username, $password, $grantType, ClientEntityInterface $clientEntity)
     {
-        $guards = config('auth.clients');
+        $clientDetail = config('auth.clients.' . $clientEntity->getIdentifier());
 
-        $provider = config('auth.guards.'.$guards[$clientEntity->getIdentifier()].'.provider');
+        $provider = config('auth.guards.' . $clientDetail['name'] . '.provider');
 
-        if (is_null($model = config('auth.providers.'.$provider.'.model'))) {
+        if (is_null($model = config('auth.providers.' . $provider . '.model'))) {
             throw new RuntimeException('Unable to determine authentication model from configuration.');
         }
 
